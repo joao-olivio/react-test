@@ -1,11 +1,16 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import CommentBox from 'components/CommentBox';
+import Root from 'Root';
 
 describe('Comment List', () => {
     let wrapped;
     beforeEach(() => {
-        wrapped = mount(<CommentBox />);
+        wrapped = mount(
+        <Root>
+            <CommentBox />
+        </Root>
+        );
     });
 
     afterEach(() => {
@@ -36,16 +41,16 @@ describe('Comment List', () => {
                 }
             });
             wrapped.update();
-        });
+        })
 
         it('has a text area that users can type in', () => {
-            expect(wrapped.find('textarea').prop('value')).toEqual('new comment!');
-        });
+            expect(wrapped.find('textarea').prop('value')).toEqual('new comment!')
+        })
     
         it('empty the text area when form submits', () => {
-            wrapped.find('form').simulate('submit');
-            wrapped.update();
-            expect(wrapped.find('textarea').prop('value')).toEqual('');
+            wrapped.find('form').simulate('submit')
+            wrapped.update()
+            expect(wrapped.find('textarea').prop('value')).toEqual('')
         })
     })
 });

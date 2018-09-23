@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from 'components/App';
+import Root from 'components';
 
 ReactDOM.render(
-    <App />, 
+    <Root>
+        <App></App>
+    </Root>
+    , 
     document.querySelector('#root')
 );
