@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from 'actions';
 
 class CommenBox extends Component {
     state = {
@@ -39,4 +41,4 @@ class CommenBox extends Component {
     }
 }
 
-export default CommenBox;
+export default connect(null, actions)(CommenBox);
