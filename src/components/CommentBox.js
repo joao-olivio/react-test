@@ -1,28 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { saveComment, fetchComments, changeAuth } from 'actions';
+import requireAuth from 'hoc/requireAuth';
 
 class CommenBox extends Component {
     state = {
         comment: ''
-    }
-
-    // Our component just got rendered
-    componentDidMount () {
-        this.shouldNavigateUserAway();
-    }
-
-    // Our component just got updated (each state update)
-    componentDidUpdate () {
-        this.shouldNavigateUserAway();
-    }
-
-    shouldNavigateUserAway () {
-        const { auth } = this.props;
-
-        if(!auth) {
-            this.props.history.push('/');
-        }
     }
 
     onTextAreaChangeEvent = event => {
@@ -57,8 +40,4 @@ class CommenBox extends Component {
     }
 }
 
-function mapStateToProps (state) {
-    return { auth: state.auth }
-}
-
-export default connect(mapStateToProps, { saveComment, fetchComments, changeAuth })(CommenBox);
+export default connect(null, { saveComment, fetchComments, changeAuth })(requireAuth(CommenBox));
