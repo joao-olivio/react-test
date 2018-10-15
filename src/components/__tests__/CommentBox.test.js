@@ -30,7 +30,7 @@ describe('Comment List', () => {
     });
 
     it('show a submit button', () => {
-        expect(wrapped.find('button').length).toEqual(1);
+        expect(wrapped.find('form').find('button').length).toEqual(1);
     });
 
     describe('text area', () => {

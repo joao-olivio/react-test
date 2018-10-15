@@ -1,28 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from 'actions';
+import { saveComment, fetchComments } from 'actions';
 
 class CommenBox extends Component {
     state = {
         comment: ''
     }
 
-    constructor() {
-        super();
-    }
-
-    onTextAreaChangeEvent (event) {
+    onTextAreaChangeEvent = event => {
         this.setState({
             comment: event.target.value
         });
     }
 
-    onCommentFormSubmit (event) {
+    onCommentFormSubmit = event =>{
         event.preventDefault();
 
-        // TODO: call an action creator
-        // and save the comment
-        
+        this.props.saveComment(this.state.comment);
+
         this.setState({
             comment: ''
         });
@@ -30,15 +25,18 @@ class CommenBox extends Component {
 
     render() {
         return (
-            <form onSubmit={this.onCommentFormSubmit.bind(this)}>
-                <h4>Add a comment</h4>
-                <textarea onChange={this.onTextAreaChangeEvent.bind(this)} value={this.state.comment} />
-                <div>
-                    <button>Submit Comment</button>
-                </div>
-            </form>
+            <div>
+                <form onSubmit={this.onCommentFormSubmit}>
+                    <h4>Add a comment</h4>
+                    <textarea onChange={this.onTextAreaChangeEvent} value={this.state.comment} />
+                    <div>
+                        <button>Submit Comment</button>
+                    </div>
+                </form>
+                <button className="fetch-comments" onClick={this.props.fetchComments}>Fetch comments</button>
+            </div>
         )
     }
 }
 
-export default connect(null, actions)(CommenBox);
+export default connect(null, { saveComment, fetchComments })(CommenBox);
