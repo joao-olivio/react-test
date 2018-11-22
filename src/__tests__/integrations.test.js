@@ -5,8 +5,6 @@ import App from 'components/App';
 import {Route, BrowserRouter, MemoryRouter} from 'react-router-dom';
 import moxios from 'moxios';
 
-jest.setTimeout(10000);
-
 describe('Comments integration test', () => {
     let wrapped;
     beforeEach(() => {
@@ -24,7 +22,7 @@ describe('Comments integration test', () => {
     afterEach(() => {
         moxios.uninstall();
     });
-
+    
     it('can fetch a list of comments and display them',  async (done) => {
         const initialState = {
             auth: true
@@ -41,7 +39,7 @@ describe('Comments integration test', () => {
 
         moxios.wait(() => {
             wrapped.update();
-            expect(wrapped.find('li').length).toEqual(2);
+            expect(wrapped.find('.comment-list-wrapper li').length).toEqual(2);
             done();
 
             wrapped.unmount();

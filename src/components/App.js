@@ -37,7 +37,7 @@ class App extends Component {
             <div>
                 { this.renderHeader() }
                 <Route path="/post" component={CommentBox} />
-                <Route path="/" exact component={CommentList} />
+                <Route path="/" component={CommentList} />
             </div>
         )
     }
