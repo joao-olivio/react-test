@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { saveComment, fetchComments } from 'actions';
+import { saveComment, fetchComments, changeAuth } from 'actions';
+import requireAuth from 'hoc/requireAuth';
 
 class CommenBox extends Component {
     state = {
@@ -39,4 +40,4 @@ class CommenBox extends Component {
     }
 }
 
-export default connect(null, { saveComment, fetchComments })(CommenBox);
+export default connect(null, { saveComment, fetchComments, changeAuth })(requireAuth(CommenBox));

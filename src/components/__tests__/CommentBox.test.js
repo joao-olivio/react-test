@@ -6,8 +6,11 @@ import Root from 'Root';
 describe('Comment List', () => {
     let wrapped;
     beforeEach(() => {
+        const initialState = {
+            auth: true
+        }
         wrapped = mount(
-        <Root>
+        <Root initialState={initialState}>
             <CommentBox />
         </Root>
         );

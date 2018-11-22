@@ -2,11 +2,13 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Root from 'Root';
 import App from 'components/App';
+import {Route, BrowserRouter, MemoryRouter} from 'react-router-dom';
 import moxios from 'moxios';
 
 describe('Comments integration test', () => {
     let wrapped;
     beforeEach(() => {
+        
         moxios.install();
         moxios.stubRequest('https://jsonplaceholder.typicode.com/comments', {
             status: 200,
@@ -14,25 +16,30 @@ describe('Comments integration test', () => {
                 { name: 'Fetched #1'},
                 { name: 'Fetched #2'}
             ]
-        })
+        },100)
     });
 
     afterEach(() => {
         moxios.uninstall();
     });
-
-    it('can fetch a list of comments and display them', done => {
+    
+    it('can fetch a list of comments and display them',  async (done) => {
+        const initialState = {
+            auth: true
+        }
         wrapped = mount(
-            <Root>
-                <App />
+            <Root initialState={initialState}>
+                <MemoryRouter initialEntries={[ '/post' ]}>
+                    <App />
+                </MemoryRouter>
             </Root> 
         );
-
+        
         wrapped.find('.fetch-comments').simulate('click');
 
         moxios.wait(() => {
             wrapped.update();
-            expect(wrapped.find('li').length).toEqual(2);
+            expect(wrapped.find('.comment-list-wrapper li').length).toEqual(2);
             done();
 
             wrapped.unmount();
